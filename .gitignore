@@ -1,0 +1,17 @@
+*.pyc
+primer/
+pdf/
+e/
+python_sessions/
+Emails/
+*.png
+*.eps
+*.hdf5
+*.h5
+*.txt
+*.h5
+*.pdf
+*.o
+*.so
+.vscode/
+.ipynb_checkpoints/
