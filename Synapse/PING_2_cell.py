@@ -14,16 +14,16 @@ def plot_data(st_mon_e, st_mon_i, title=None, c='k'):
     fig, ax = plt.subplots(2, figsize=(10, 6), sharex=True)
 
     ax[0].plot(st_mon_e.t / b2.ms, st_mon_e.vm_e[0] /
-               b2.mV, lw=2, c="r", alpha=0.5, label="neuron RTM")
+               b2.mV, lw=2, c="r", alpha=1, label="neuron RTM")
     ax[0].plot(st_mon_i.t / b2.ms, st_mon_i.vm_i[0] /
-               b2.mV, lw=2, c="b", alpha=0.5, label='neuron WB')
+               b2.mV, lw=2, c="b", alpha=1, label='neuron WB')
 
     ax[1].plot(st_mon_e.t / b2.ms, st_mon_e.s_e[0],
                lw=2, c="r", label='s_e')
     ax[1].plot(st_mon_i.t / b2.ms, st_mon_i.s_i[0],
                lw=2, c="b", label='s_i')
 
-    ax[0].set_xlabel("t [ms]", fontsize=14)
+    ax[1].set_xlabel("t [ms]", fontsize=14)
     ax[0].set_ylabel("v [mV]", fontsize=14)
     ax[1].set_ylabel("s", fontsize=14)
 
