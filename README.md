@@ -7,5 +7,5 @@ References:
 
 #### to upgrade to latest version:
 ```
-pip2 install brian2 --upgrade
+pip3 install brian2 --upgrade
 ```
