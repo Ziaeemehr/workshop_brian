@@ -27,6 +27,7 @@ def plot_data(state_monitor, title=None):
         ax.set_title(title)
 
     plt.tight_layout()
+    plt.savefig("fig.png")
 
     plt.show();
 

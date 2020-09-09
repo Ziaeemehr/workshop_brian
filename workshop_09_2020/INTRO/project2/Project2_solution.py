@@ -36,7 +36,7 @@ def plot_data(state_monitor, title=None, c='k'):
 
     if title is not None:
         ax[0].set_title(title)
-
+    plt.savefig("fig.png")
     plt.show()
 
 
