@@ -4,8 +4,8 @@ import pylab as plt
 
 
 b2.start_scope()
-# b2.set_device('cpp_standalone', debug=True, directory="output")
-b2.prefs.codegen.target = 'numpy'  # use the Python fallback
+b2.set_device('cpp_standalone', debug=True, directory="output")
+# b2.prefs.codegen.target = 'numpy'  # use the Python fallback
 
 tau = 10*b2.ms
 eqs = '''
