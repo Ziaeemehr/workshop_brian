@@ -16,13 +16,15 @@ def run_sim(tau):
     return (mon.t/ms, mon.v[0])
 
 
-clear_cache('cython')
+if __name__ == "__main__":
+    clear_cache('cython')
+    num_proc = 4
 
-tau_values = np.arange(10)*ms + 5*ms
-with multiprocessing.Pool(4) as p:
-    results = p.map(run_sim, tau_values)
+    tau_values = np.arange(10)*ms + 5*ms
+    with multiprocessing.Pool(num_proc) as p:
+        results = p.map(run_sim, tau_values)
 
-for tau_value, (t, v) in zip(tau_values, results):
-    plt.plot(t, v, label=str(tau_value))
-plt.legend()
-plt.show()
+    for tau_value, (t, v) in zip(tau_values, results):
+        plt.plot(t, v, label=str(tau_value))
+    plt.legend()
+    plt.show()
