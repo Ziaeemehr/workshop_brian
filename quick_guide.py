@@ -1,7 +1,8 @@
-import brian2 as b2
+import os
+import time
 import numpy as np
+import brian2 as b2
 import multiprocessing
-
 
 # Seeding the pseudo random number generator when using cpp_standalone
 b2.set_device('cpp_standalone')

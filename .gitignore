@@ -4,6 +4,8 @@ pdf/
 e/
 output/
 python_sessions/
+neurodynex3-master/
+
 Emails/
 *.png
 *.eps
@@ -16,3 +18,5 @@ Emails/
 *.so
 .vscode/
 .ipynb_checkpoints/
+
+
