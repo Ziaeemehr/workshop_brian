@@ -1,7 +1,10 @@
 import brian2 as b2
 import matplotlib.pyplot as plt
 import numpy as np
+import os
 
+if not os.path.exists("data"):
+    os.makedirs("data")
 
 def plot_data(st_mon_e, st_mon_i, title=None, c='k'):
     """Plots the state_monitor variables "vm" vs. time.
@@ -35,7 +38,7 @@ def plot_data(st_mon_e, st_mon_i, title=None, c='k'):
 
     if title is not None:
         ax[0].set_title(title)
-    plt.savefig("PING_2_cell.png")
+    plt.savefig("data/PING_2_cell.png")
     plt.show()
 
 # Reduced Traub-Miles Model
@@ -43,12 +46,13 @@ def plot_data(st_mon_e, st_mon_i, title=None, c='k'):
 
 def simulate_2_cell_PING():
 
+    dt = 0.05
     num_e = 1
     num_i = 1
     I_ext_e = 1.4 * b2.uA
     I_ext_i = 0 * b2.uA
 
-    weight_ei = weight_ie = 1  # connection weight of tr to wb cell.
+    weight_ei = weight_ie = 1  # connection weight of RTM to WB cell.
 
     v0_e = -70 * b2.mV
     v0_i = -63 * b2.mV
@@ -115,7 +119,7 @@ def simulate_2_cell_PING():
     neuron_e = b2.NeuronGroup(num_e,
                               eqs_e,
                               method=integration_method,
-                              dt=0.05*b2.ms,
+                              dt=dt*b2.ms,
                               threshold='vm_e>-55*mV',
                               refractory='vm_e>-55*mV',
                               namespace=params_e)
@@ -156,7 +160,7 @@ def simulate_2_cell_PING():
     neuron_i = b2.NeuronGroup(num_i,
                               eqs_i,
                               method=integration_method,
-                              dt=0.01 * b2.ms,
+                              dt=dt*b2.ms,
                               threshold='vm_i>-55*mV',
                               refractory='vm_i>-55*mV',
                               namespace=params_i)
@@ -167,13 +171,13 @@ def simulate_2_cell_PING():
     neuron_i.I_ext = I_ext_i
 
     #---------------------------------------------------------------#
-    syn_ei_eqs = '''
+    syn_ei_eqs = '''  # synapse model, e to i
     w : 1
-    I_syn_i_post = g_ei * s_e_pre * (v_rev_e - vm_i) :amp (summed)
+    I_syn_i_post = w * g_ei * s_e_pre * (v_rev_e - vm_i) :amp (summed)
     '''
-    syn_ie_eqs = '''
+    syn_ie_eqs = '''  # synapse model, i to e
     w : 1
-    I_syn_e_post = g_ie * s_i_pre * (v_rev_i - vm_e) :amp (summed)
+    I_syn_e_post = w * g_ie * s_i_pre * (v_rev_i - vm_e) :amp (summed)
     '''
     #---------------------------------------------------------------#
     S_ei = b2.Synapses(neuron_e,
@@ -207,5 +211,5 @@ def simulate_2_cell_PING():
 
 if __name__ == "__main__":
 
-    st_mon_e, st_mon_wb = simulate_2_cell_PING()
-    plot_data(st_mon_e, st_mon_wb)
+    st_mon_e, st_mon_i = simulate_2_cell_PING()
+    plot_data(st_mon_e, st_mon_i)
