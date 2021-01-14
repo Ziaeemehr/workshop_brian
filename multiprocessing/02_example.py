@@ -1,6 +1,7 @@
 # https://github.com/brian-team/brian2/issues/1154#issuecomment-582994117
 import os
 import multiprocessing
+from time import time as wall_time
 
 from brian2 import *
 
@@ -27,11 +28,17 @@ def run_sim(tau):
 
 
 if __name__ == "__main__":
+    
+    statr_time = wall_time()
+    
     num_proc = 4
+
 
     tau_values = np.arange(10)*ms + 5*ms
     with multiprocessing.Pool(num_proc) as p:
         results = p.map(run_sim, tau_values)
+
+    print("Done in {:10.3f}".format(wall_time() - statr_time))
 
     for tau_value, (t, v) in zip(tau_values, results):
         plt.plot(t, v, label=str(tau_value))
